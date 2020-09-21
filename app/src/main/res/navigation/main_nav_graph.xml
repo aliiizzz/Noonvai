@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_graph"
+    app:startDestination="@id/fragment_vitrin">
+
+
+    <fragment
+        android:id="@+id/fragment_vitrin"
+        android:name="ir.aliiz.noonvai.VitrinFragment"
+        >
+
+        <action
+            android:id="@+id/action_vitrin_to_settings"
+            app:destination="@id/fragment_settings"
+            />
+        <action
+            android:id="@+id/action_vitrin_to_basket"
+            app:destination="@id/fragment_basket"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_bread"
+        android:name="ir.aliiz.noonvai.BreadFragment"
+        >
+        <action
+            android:id="@+id/action_bread_to_edit"
+            app:destination="@id/fragment_add_bread">
+            <argument
+                android:name="id"
+                app:argType="integer"
+                />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_basket"
+        android:name="ir.aliiz.noonvai.BasketFragment"
+        >
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_basket_full"
+        android:name="ir.aliiz.noonvai.BasketsFragment"/>
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="ir.aliiz.noonvai.SettingsFragment"
+        >
+        <action
+            android:id="@+id/action_settings_to_bread"
+            app:destination="@id/fragment_bread"/>
+        <action
+            android:id="@+id/action_settings_to_basket"
+            app:destination="@id/fragment_basket_full"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_add_bread"
+        android:name="ir.aliiz.noonvai.AddBreadFragment"
+        >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1"
+            />
+    </fragment>
+</navigation>

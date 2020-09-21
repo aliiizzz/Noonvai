@@ -1,6 +1,6 @@
 package ir.aliiz.noonvai
 
-interface NoonvaRepo {
+interface BreadRepo {
     suspend fun getItems(): List<Bread>
     suspend fun add(bread: Bread)
     suspend fun remove(id: Int)

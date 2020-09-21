@@ -1,6 +1,6 @@
 package ir.aliiz.noonvai
 
-class RoomNoonvaRepo(private val noonvaDao: NoonvaDao) : NoonvaRepo {
+class RoomBreadRepo(private val noonvaDao: NoonvaDao) : BreadRepo {
     override suspend fun getItems(): List<Bread> = noonvaDao.getItems()
 
     override suspend fun add(bread: Bread) {

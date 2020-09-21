@@ -12,8 +12,8 @@ val viewmodels = module {
 }
 
 val repoModule = module {
-    single<NoonvaRepo> {
-        RoomNoonvaRepo(get())
+    single<BreadRepo> {
+        RoomBreadRepo(get())
     }
 
     single<BasketRepo> {

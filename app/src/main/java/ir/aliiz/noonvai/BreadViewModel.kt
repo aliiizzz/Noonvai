@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class BreadViewModel(
-    private val noonvaRepo: NoonvaRepo,
+    private val breadRepo: BreadRepo,
     private val dispatchers: Dispatchers
 ) : ViewModel() {
 
@@ -30,7 +30,7 @@ class BreadViewModel(
             _items.value = Loadable.Loading
             kotlin.runCatching {
                 withContext(dispatchers.io) {
-                    noonvaRepo.getItems()
+                    breadRepo.getItems()
                 }
             }.onSuccess {
                 _items.value = Loadable.Loaded(it)
@@ -47,7 +47,7 @@ class BreadViewModel(
         viewModelScope.launch {
             kotlin.runCatching {
                 withContext(dispatchers.io) {
-                    noonvaRepo.add(Bread(0, title.toString(), price = price.toString().toInt()))
+                    breadRepo.add(Bread(0, title.toString(), price = price.toString().toInt()))
                 }
             }.onSuccess {
                 _addBread.setValue(Loadable.Loaded(Unit))
@@ -64,7 +64,7 @@ class BreadViewModel(
         if (_editBread.value == Loadable.Loading) return
         viewModelScope.launch {
             kotlin.runCatching {
-                noonvaRepo.update(Bread(id, title.toString(), price = price.toString().toInt()))
+                breadRepo.update(Bread(id, title.toString(), price = price.toString().toInt()))
             }.onSuccess {
                 _editBread.setValue(Loadable.Loaded(Unit))
             }.onFailure {
@@ -78,8 +78,8 @@ class BreadViewModel(
         viewModelScope.launch {
             kotlin.runCatching {
                 withContext(dispatchers.io) {
-                    noonvaRepo.delete(id)
-                    noonvaRepo.getItems()
+                    breadRepo.delete(id)
+                    breadRepo.getItems()
                 }
             }.onSuccess {
                 _items.value = Loadable.Loaded(it)
@@ -94,7 +94,7 @@ class BreadViewModel(
         viewModelScope.launch {
             kotlin.runCatching {
                 withContext(dispatchers.io) {
-                    noonvaRepo.getItem(id)
+                    breadRepo.getItem(id)
                 }
             }.onSuccess {
                 _bread.value = Loadable.Loaded(it)

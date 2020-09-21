@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class BasketViewModel(
-    private val noonvaRepo: NoonvaRepo,
+    private val breadRepo: BreadRepo,
     private val basketRepo: BasketRepo,
     private val dispatchers: Dispatchers
 ) : ViewModel() {
@@ -41,7 +41,7 @@ class BasketViewModel(
             viewModelScope.launch {
                 kotlin.runCatching {
                     withContext(dispatchers.io) {
-                        noonvaRepo.getItem(id)
+                        breadRepo.getItem(id)
                     }
                 }.onSuccess { bread ->
                     _items.value = (_items.value?.toMutableList() ?: mutableListOf()).apply {

@@ -1,21 +1,15 @@
 package ir.aliiz.noonvai
 
-import android.text.Editable
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Before
 
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
 
 class BreadViewModelTest {
 
@@ -26,7 +20,7 @@ class BreadViewModelTest {
     val instantRule = InstantTaskExecutorRule()
 
     @RelaxedMockK
-    lateinit var noonvaRepo: NoonvaRepo
+    lateinit var breadRepo: BreadRepo
 
     @Before
     fun setUp() {
@@ -38,12 +32,12 @@ class BreadViewModelTest {
         unmockkAll()
     }
 
-    fun createViewModel() = BreadViewModel(noonvaRepo, rule.toDispatcherProvider())
+    fun createViewModel() = BreadViewModel(breadRepo, rule.toDispatcherProvider())
 
     @Test
     fun `when check items called, then items should be loading`() = rule.runBlockingTest {
         coEvery {
-            noonvaRepo.getItems()
+            breadRepo.getItems()
         } coAnswers {
             delay(2000)
             listOf(Bread(1, "test", 1000))
@@ -58,7 +52,7 @@ class BreadViewModelTest {
       fun `when check items success, then items should load`() = rule.runBlockingTest {
          val breads = listOf(Bread(1, "test", 1000))
          coEvery {
-             noonvaRepo.getItems()
+             breadRepo.getItems()
          } returns breads
          val vm = createViewModel()
          vm.checkItems()
@@ -70,7 +64,7 @@ class BreadViewModelTest {
     fun `when check items failed, then items should be failed`() = rule.runBlockingTest {
         val exception = Exception("error")
         coEvery {
-            noonvaRepo.getItems()
+            breadRepo.getItems()
         } throws exception
         val vm = createViewModel()
         vm.checkItems()
@@ -105,7 +99,7 @@ class BreadViewModelTest {
         vm.add("test", "1000")
         delay(100)
         coVerify {
-            noonvaRepo.add(any())
+            breadRepo.add(any())
         }
     }
 
@@ -114,7 +108,7 @@ class BreadViewModelTest {
         rule.runBlockingTest {
             val bread = slot<Bread>()
             coEvery {
-                noonvaRepo.add(capture(bread))
+                breadRepo.add(capture(bread))
             } returns Unit
             val vm = createViewModel()
             vm.add("test", "1000")

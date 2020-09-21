@@ -7,9 +7,6 @@ class RoomBreadRepo(private val noonvaDao: NoonvaDao) : BreadRepo {
         noonvaDao.add(bread)
     }
 
-    override suspend fun remove(id: Int) {
-    }
-
     override suspend fun update(bread: Bread) {
         noonvaDao.edit(bread)
     }

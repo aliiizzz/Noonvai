@@ -1,6 +1,5 @@
 package ir.aliiz.noonvai
 
-import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -58,13 +57,13 @@ class BreadViewModel(
         }
     }
 
-    fun edit(title: Editable?, price: Editable?, id: Int) {
-        if (title == null || title.isEmpty()) return
-        if (price == null || !price.matches(Regex("\\d+"))) return
+    fun edit(title: String, price: String, id: Int) {
+        if (title.isEmpty()) return
+        if (!price.matches(Regex("\\d+"))) return
         if (_editBread.value == Loadable.Loading) return
         viewModelScope.launch {
             kotlin.runCatching {
-                breadRepo.update(Bread(id, title.toString(), price = price.toString().toInt()))
+                breadRepo.update(Bread(id, title, price = price.toInt()))
             }.onSuccess {
                 _editBread.setValue(Loadable.Loaded(Unit))
             }.onFailure {

@@ -50,7 +50,7 @@ class AddBreadFragment : Fragment() {
             if (args.id == -1) {
                 viewmodel.add(inputAddBreadTitle.text.toString(), inputAddBreadPrice.text.toString())
             } else {
-                viewmodel.edit(inputAddBreadTitle.text, inputAddBreadPrice.text, args.id)
+                viewmodel.edit(inputAddBreadTitle.text.toString(), inputAddBreadPrice.text.toString(), args.id)
             }
         }
     }

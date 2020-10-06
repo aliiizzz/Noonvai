@@ -190,23 +190,24 @@ class BreadViewModelTest {
             assertEquals(Bread(1, "test1", 1000), (vm.bread.value as Loadable.Loaded).data)
         }
 
-    class StubBreadRepo: BreadRepo {
-        private val items: MutableList<Bread> = mutableListOf(
-            Bread(1, "test1", 1000),
-            Bread(2, "test2", 2000)
-        )
-        override suspend fun getItems(): List<Bread> = items
+}
 
-        override suspend fun add(bread: Bread) {
-        }
+class StubBreadRepo: BreadRepo {
+    private val items: MutableList<Bread> = mutableListOf(
+        Bread(1, "test1", 1000),
+        Bread(2, "test2", 2000)
+    )
+    override suspend fun getItems(): List<Bread> = items
 
-        override suspend fun update(bread: Bread) {
-        }
+    override suspend fun add(bread: Bread) {
+    }
 
-        override suspend fun getItem(id: Int): Bread = items.first { it.id == id }
+    override suspend fun update(bread: Bread) {
+    }
 
-        override suspend fun delete(id: Int) {
-            items.removeIf { it.id == id }
-        }
+    override suspend fun getItem(id: Int): Bread = items.first { it.id == id }
+
+    override suspend fun delete(id: Int) {
+        items.removeIf { it.id == id }
     }
 }
